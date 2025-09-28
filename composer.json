@@ -1,0 +1,43 @@
+{
+    "name": "akawaka/copilot-bridge",
+    "type": "symfony-bridge",
+    "description": "Bridge to Github Copilot for Symfony",
+    "keywords": ["copilot", "github", "ai", "symfony", "bridge"],
+    "homepage": "https://github.com/akawaka/copilot-bridge",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Franck Matsos",
+            "email": "github@franck.matsos.fr"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "symfony/ai-platform": "dev-main",
+        "symfony/cache": "^6.4|^7.0",
+        "symfony/config": "^6.4|^7.0",
+        "symfony/console": "^6.4|^7.0",
+        "symfony/dependency-injection": "^6.4|^7.0",
+        "symfony/http-client": "^6.4|^7.0",
+        "symfony/service-contracts": "^2.5|^3",
+        "psr/log": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "symfony/var-dumper": "^6.4|^7.0"
+    },
+    "conflict": {
+        "symfony/http-client": "<6.4",
+        "symfony/cache": "<6.4",
+        "symfony/config": "<6.4",
+        "symfony/dependency-injection": "<6.4",
+        "symfony/console": "<6.4"
+    },
+    "autoload": {
+        "psr-4": { "Akawaka\\Bridge\\Copilot\\": "" },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "minimum-stability": "dev"
+}
