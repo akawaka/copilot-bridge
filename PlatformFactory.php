@@ -7,6 +7,7 @@ namespace Akawaka\Bridge\Copilot;
 use Akawaka\Bridge\Copilot\Chat\ModelClient;
 use Akawaka\Bridge\Copilot\Chat\ResultConverter;
 use Symfony\AI\Platform\Contract;
+use Symfony\AI\Platform\ModelCatalog\DynamicModelCatalog;
 use Symfony\AI\Platform\Platform;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -22,6 +23,7 @@ final class PlatformFactory
         return new Platform(
             [new ModelClient($httpClient, $chatCompletionsEndpoint, $modelResponsesEndpoint)],
             [new ResultConverter()],
+            new DynamicModelCatalog(),
             $contract ?? Contract::create(),
         );
     }

@@ -14,6 +14,7 @@ use Akawaka\Bridge\Copilot\Command\StatusCommand;
 use Akawaka\Bridge\Copilot\ModelCapabilitiesResolver;
 use Akawaka\Bridge\Copilot\ModelCapabilitiesResolverInterface;
 use Akawaka\Bridge\Copilot\PlatformFactory;
+use Symfony\AI\Platform\Platform;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -88,6 +89,17 @@ class CopilotExtension extends Extension
 
     private function registerPlatformFactory(ContainerBuilder $container): void
     {
+        // Register the platform factory as a service that creates Platform instances
+        $container->setDefinition('copilot.platform', new Definition(Platform::class))
+            ->setFactory([PlatformFactory::class, 'create'])
+            ->setArguments([
+                new Reference('http_client'),
+                '%copilot.chat_completions_endpoint%',
+                '%copilot.model_responses_endpoint%'
+            ])
+            ->setPublic(false);
+
+        // Keep the factory class available for manual usage
         $container->setDefinition('copilot.platform_factory', new Definition(PlatformFactory::class))
             ->setPublic(false);
     }
